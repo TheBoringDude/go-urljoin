@@ -7,6 +7,11 @@ import (
 )
 
 func UrlJoin(base string, urls ...string) (string, error) {
+	// unsure about this feat
+	if m, _ := regexp.MatchString(`^[^/:]+:\/*`, base); !m {
+		base = "http://" + base // prepend http:// if does not start with a protocol
+	}
+
 	if len(urls) == 0 {
 		return base, nil
 	}
@@ -20,13 +25,7 @@ func UrlJoin(base string, urls ...string) (string, error) {
 
 	if match, _ := regexp.MatchString(`^[^/:]+:\/*$`, base); match && len(urls) > 1 {
 		components = append(append(components, base+urls[0]), urls[:1]...)
-
 	} else {
-		// unsure about this feat
-		if m, _ := regexp.MatchString(`^[^/:]+:\/*`, base); !m {
-			base = "http://" + base // prepend http:// if does not start with a protocol
-		}
-
 		components = append(append(components, base), urls...)
 	}
 
