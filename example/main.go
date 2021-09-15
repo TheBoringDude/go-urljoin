@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	a, _ := urljoin.UrlJoin("sample.com")
+	a := urljoin.UrlJoin("sample.com")
 
 	fmt.Println(a)
 }

@@ -1,23 +1,18 @@
 package urljoin
 
 import (
-	"errors"
 	"regexp"
 	"strings"
 )
 
-func UrlJoin(base string, urls ...string) (string, error) {
+func UrlJoin(base string, urls ...string) string {
 	// unsure about this feat
 	if m, _ := regexp.MatchString(`^[^/:]+:\/*`, base); !m {
 		base = "http://" + base // prepend http:// if does not start with a protocol
 	}
 
 	if len(urls) == 0 {
-		return base, nil
-	}
-
-	if base == "" {
-		return "", errors.New("base url should not be blank")
+		return base
 	}
 
 	var result []string
@@ -63,5 +58,5 @@ func UrlJoin(base string, urls ...string) (string, error) {
 
 	str = parts[0] + denom + strings.Join(parts[1:], "&")
 
-	return str, nil
+	return str
 }

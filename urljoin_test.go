@@ -36,13 +36,11 @@ func TestUrlJoin(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			if output, err := UrlJoin(test.baseParam, test.params...); err != nil {
-				t.Fatal(err)
-			} else {
-				if output != test.expected {
-					t.Fatal(fmt.Sprintf("test: %s :: params: %s, %s    -> output: %s | expected: %s", test.name, test.baseParam, test.params, output, test.expected))
-				}
+			output := UrlJoin(test.baseParam, test.params...)
+			if output != test.expected {
+				t.Fatal(fmt.Sprintf("test: %s :: params: %s, %s    -> output: %s | expected: %s", test.name, test.baseParam, test.params, output, test.expected))
 			}
+
 		})
 	}
 
